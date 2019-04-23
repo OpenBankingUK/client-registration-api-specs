@@ -12,7 +12,7 @@ info:
   license:
     name: open-licence
     url: 'https://www.openbanking.org.uk/open-licence'
-  version: v3.2.0
+  version: v3.2-RC1
 paths:
   /register:
     post:
