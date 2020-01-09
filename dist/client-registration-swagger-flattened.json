@@ -12,7 +12,7 @@
       "name": "open-licence",
       "url": "https://www.openbanking.org.uk/open-licence"
     },
-    "version": "v3.2.0"
+    "version": "v3.3.0"
   },
   "schemes": [
     "https"
@@ -156,7 +156,8 @@
                             "enum": [
                               "client_credentials",
                               "authorization_code",
-                              "refresh_token"
+                              "refresh_token",
+                              "urn:openid:params:grant-type:ciba"
                             ]
                           },
                           "minItems": 1
@@ -221,6 +222,34 @@
                           "type": "string",
                           "minLength": 1,
                           "maxLength": 128
+                        },
+                        "backchannel_token_delivery_mode": {
+                          "type": "string",
+                          "enum": [
+                            "poll",
+                            "ping",
+                            "push"
+                          ],
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba"
+                        },
+                        "backchannel_client_notification_endpoint": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 256,
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba and  backchannel_token_delivery_mode is not poll.  This must be a valid HTTPS URL"
+                        },
+                        "backchannel_authentication_request_signing_alg": {
+                          "type": "string",
+                          "enum": [
+                            "RS256",
+                            "PS256",
+                            "ES256"
+                          ],
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba."
+                        },
+                        "backchannel_user_code_parameter_supported": {
+                          "type": "boolean",
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified only if the grant_types includes  urn:openid:params:grant-type:ciba.  If specified, it MUST be set to false."
                         }
                       }
                     }
@@ -398,7 +427,8 @@
                             "enum": [
                               "client_credentials",
                               "authorization_code",
-                              "refresh_token"
+                              "refresh_token",
+                              "urn:openid:params:grant-type:ciba"
                             ]
                           },
                           "minItems": 1
@@ -463,6 +493,34 @@
                           "type": "string",
                           "minLength": 1,
                           "maxLength": 128
+                        },
+                        "backchannel_token_delivery_mode": {
+                          "type": "string",
+                          "enum": [
+                            "poll",
+                            "ping",
+                            "push"
+                          ],
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba"
+                        },
+                        "backchannel_client_notification_endpoint": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 256,
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba and  backchannel_token_delivery_mode is not poll.  This must be a valid HTTPS URL"
+                        },
+                        "backchannel_authentication_request_signing_alg": {
+                          "type": "string",
+                          "enum": [
+                            "RS256",
+                            "PS256",
+                            "ES256"
+                          ],
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba."
+                        },
+                        "backchannel_user_code_parameter_supported": {
+                          "type": "boolean",
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified only if the grant_types includes  urn:openid:params:grant-type:ciba.  If specified, it MUST be set to false."
                         }
                       }
                     }
@@ -640,7 +698,8 @@
                             "enum": [
                               "client_credentials",
                               "authorization_code",
-                              "refresh_token"
+                              "refresh_token",
+                              "urn:openid:params:grant-type:ciba"
                             ]
                           },
                           "minItems": 1
@@ -705,6 +764,34 @@
                           "type": "string",
                           "minLength": 1,
                           "maxLength": 128
+                        },
+                        "backchannel_token_delivery_mode": {
+                          "type": "string",
+                          "enum": [
+                            "poll",
+                            "ping",
+                            "push"
+                          ],
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba"
+                        },
+                        "backchannel_client_notification_endpoint": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 256,
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba and  backchannel_token_delivery_mode is not poll.  This must be a valid HTTPS URL"
+                        },
+                        "backchannel_authentication_request_signing_alg": {
+                          "type": "string",
+                          "enum": [
+                            "RS256",
+                            "PS256",
+                            "ES256"
+                          ],
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba."
+                        },
+                        "backchannel_user_code_parameter_supported": {
+                          "type": "boolean",
+                          "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified only if the grant_types includes  urn:openid:params:grant-type:ciba.  If specified, it MUST be set to false."
                         }
                       }
                     }

@@ -6,4 +6,4 @@ Please refer to the [Open Banking Developer Zone](https://openbanking.atlassian.
 
 # Releases
 
-The specification documents will be tagged according to the revision they match e.g. `v3.2.0` This tag will form a Release. To retrieve the files for a given release be sure to use the appropriate URL, e.g. https://github.com/OpenBankingUK/client-registration-api-specs/releases/tag/v3.2.0.
+The specification documents will be tagged according to the revision they match e.g. `v3.2.0` This tag will form a Release. To retrieve the files for a given release be sure to use the appropriate URL, e.g. https://github.com/OpenBankingUK/client-registration-api-specs/tree/v3.2.
