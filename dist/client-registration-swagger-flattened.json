@@ -240,8 +240,11 @@
                         },
                         "backchannel_authentication_request_signing_alg": {
                           "type": "string",
-                          "minLength": 1,
-                          "maxLength": 8,
+                          "enum": [
+                            "RS256",
+                            "PS256",
+                            "ES256"
+                          ],
                           "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba."
                         },
                         "backchannel_user_code_parameter_supported": {
@@ -498,8 +501,6 @@
                             "ping",
                             "push"
                           ],
-                          "minLength": 1,
-                          "maxLength": 8,
                           "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba"
                         },
                         "backchannel_client_notification_endpoint": {
@@ -510,8 +511,11 @@
                         },
                         "backchannel_authentication_request_signing_alg": {
                           "type": "string",
-                          "minLength": 1,
-                          "maxLength": 8,
+                          "enum": [
+                            "RS256",
+                            "PS256",
+                            "ES256"
+                          ],
                           "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba."
                         },
                         "backchannel_user_code_parameter_supported": {
@@ -768,8 +772,6 @@
                             "ping",
                             "push"
                           ],
-                          "minLength": 1,
-                          "maxLength": 8,
                           "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba"
                         },
                         "backchannel_client_notification_endpoint": {
@@ -780,8 +782,11 @@
                         },
                         "backchannel_authentication_request_signing_alg": {
                           "type": "string",
-                          "minLength": 1,
-                          "maxLength": 8,
+                          "enum": [
+                            "RS256",
+                            "PS256",
+                            "ES256"
+                          ],
                           "description": "As defined in CIBA - Registration and Discovery Metadata.  This value MUST be specified iff the grant_types includes  urn:openid:params:grant-type:ciba."
                         },
                         "backchannel_user_code_parameter_supported": {
