@@ -12,7 +12,7 @@ info:
   license:
     name: open-licence
     url: 'https://www.openbanking.org.uk/open-licence'
-  version: v3.2-RC1
+  version: v3.3.0
 schemes:
   - https
 consumes:
@@ -116,7 +116,7 @@ responses:
     description: Client registration
     schema:
       allOf:
-        - $ref: '#/definitions/OBRegistrationProperties1'
+        - $ref: '#/definitions/OBClientRegistration1'
         - required:
             - client_id
   400Error:

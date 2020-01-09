@@ -12,7 +12,7 @@
       "name": "open-licence",
       "url": "https://www.openbanking.org.uk/open-licence"
     },
-    "version": "v3.2-RC1"
+    "version": "v3.3.0"
   },
   "schemes": [
     "https"
@@ -183,7 +183,7 @@
       "schema": {
         "allOf": [
           {
-            "$ref": "#/definitions/OBRegistrationProperties1"
+            "$ref": "#/definitions/OBClientRegistration1"
           },
           {
             "required": [

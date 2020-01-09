@@ -12,7 +12,7 @@
       "name": "open-licence",
       "url": "https://www.openbanking.org.uk/open-licence"
     },
-    "version": "v3.2-RC1"
+    "version": "v3.3.0"
   },
   "paths": {
     "/register": {
@@ -32,135 +32,182 @@
                 "schema": {
                   "allOf": [
                     {
-                      "type": "object",
-                      "required": [
-                        "redirect_uris",
-                        "token_endpoint_auth_method",
-                        "grant_types",
-                        "scope",
-                        "software_statement",
-                        "application_type",
-                        "id_token_signed_response_alg",
-                        "request_object_signing_alg"
-                      ],
-                      "properties": {
-                        "client_id": {
-                          "description": "OAuth 2.0 client identifier string",
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 36
-                        },
-                        "client_secret": {
-                          "description": "OAuth 2.0 client secret string",
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 36
-                        },
-                        "client_id_issued_at": {
-                          "description": "Time at which the client identifier was issued expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
-                          "type": "integer",
-                          "format": "int32",
-                          "minimum": 0
-                        },
-                        "client_secret_expires_at": {
-                          "description": "Time at which the client secret will expire expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC. Set to 0 if does not expire",
-                          "type": "integer",
-                          "format": "int32",
-                          "minimum": 0
-                        },
-                        "redirect_uris": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "format": "uri",
-                            "minLength": 1,
-                            "maxLength": 256
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "required": [
+                            "iss",
+                            "iat",
+                            "exp",
+                            "aud",
+                            "jti"
+                          ],
+                          "properties": {
+                            "iss": {
+                              "description": "Unique identifier for the TPP. Implemented as Base62 encoded GUID",
+                              "type": "string",
+                              "pattern": "^[0-9a-zA-Z]{1,22}$",
+                              "minLength": 1,
+                              "maxLength": 22
+                            },
+                            "iat": {
+                              "description": "The time at which the request was issued by the TPP  expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
+                              "type": "integer",
+                              "format": "int32"
+                            },
+                            "exp": {
+                              "description": "The time at which the request expires expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
+                              "type": "integer",
+                              "format": "int32"
+                            },
+                            "aud": {
+                              "description": "The audience for the request. This should be the unique identifier\nfor the ASPSP issued by the issuer of the software statement.\nImplemented as Base62 encoded GUID\n",
+                              "type": "string",
+                              "pattern": "^[0-9a-zA-Z]{1,18}$",
+                              "minLength": 1,
+                              "maxLength": 18
+                            },
+                            "jti": {
+                              "description": "Unique identifier for the JWT implemented as UUID v4",
+                              "type": "string",
+                              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+                              "minLength": 36,
+                              "maxLength": 36
+                            }
                           }
                         },
-                        "token_endpoint_auth_method": {
-                          "type": "string",
-                          "enum": [
-                            "private_key_jwt",
-                            "client_secret_jwt",
-                            "client_secret_basic",
-                            "client_secret_post",
-                            "tls_client_auth"
-                          ]
-                        },
-                        "grant_types": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "enum": [
-                              "client_credentials",
-                              "authorization_code",
-                              "refresh_token"
-                            ]
-                          },
-                          "minItems": 1
-                        },
-                        "response_types": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "enum": [
-                              "code",
-                              "code id_token"
-                            ]
+                        {
+                          "type": "object",
+                          "required": [
+                            "redirect_uris",
+                            "token_endpoint_auth_method",
+                            "grant_types",
+                            "scope",
+                            "software_statement",
+                            "application_type",
+                            "id_token_signed_response_alg",
+                            "request_object_signing_alg"
+                          ],
+                          "properties": {
+                            "client_id": {
+                              "description": "OAuth 2.0 client identifier string",
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 36
+                            },
+                            "client_secret": {
+                              "description": "OAuth 2.0 client secret string",
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 36
+                            },
+                            "client_id_issued_at": {
+                              "description": "Time at which the client identifier was issued expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
+                              "type": "integer",
+                              "format": "int32",
+                              "minimum": 0
+                            },
+                            "client_secret_expires_at": {
+                              "description": "Time at which the client secret will expire expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC. Set to 0 if does not expire",
+                              "type": "integer",
+                              "format": "int32",
+                              "minimum": 0
+                            },
+                            "redirect_uris": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "format": "uri",
+                                "minLength": 1,
+                                "maxLength": 256
+                              }
+                            },
+                            "token_endpoint_auth_method": {
+                              "type": "string",
+                              "enum": [
+                                "private_key_jwt",
+                                "client_secret_jwt",
+                                "client_secret_basic",
+                                "client_secret_post",
+                                "tls_client_auth"
+                              ]
+                            },
+                            "grant_types": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "enum": [
+                                  "client_credentials",
+                                  "authorization_code",
+                                  "refresh_token"
+                                ]
+                              },
+                              "minItems": 1
+                            },
+                            "response_types": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "enum": [
+                                  "code",
+                                  "code id_token"
+                                ]
+                              }
+                            },
+                            "software_id": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 22,
+                              "pattern": "^[0-9a-zA-Z]{1,22}$"
+                            },
+                            "scope": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 256
+                            },
+                            "software_statement": {
+                              "type": "string",
+                              "format": "JWT"
+                            },
+                            "application_type": {
+                              "type": "string",
+                              "enum": [
+                                "web",
+                                "mobile"
+                              ]
+                            },
+                            "id_token_signed_response_alg": {
+                              "type": "string",
+                              "enum": [
+                                "RS256",
+                                "PS256",
+                                "ES256"
+                              ]
+                            },
+                            "request_object_signing_alg": {
+                              "type": "string",
+                              "enum": [
+                                "RS256",
+                                "PS256",
+                                "ES256"
+                              ]
+                            },
+                            "token_endpoint_auth_signing_alg": {
+                              "type": "string",
+                              "enum": [
+                                "RS256",
+                                "PS256",
+                                "ES256"
+                              ]
+                            },
+                            "tls_client_auth_subject_dn": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 128
+                            }
                           }
-                        },
-                        "software_id": {
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 22,
-                          "pattern": "^[0-9a-zA-Z]{1,22}$"
-                        },
-                        "scope": {
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 256
-                        },
-                        "software_statement": {
-                          "type": "string",
-                          "format": "JWT"
-                        },
-                        "application_type": {
-                          "type": "string",
-                          "enum": [
-                            "web",
-                            "mobile"
-                          ]
-                        },
-                        "id_token_signed_response_alg": {
-                          "type": "string",
-                          "enum": [
-                            "RS256",
-                            "PS256",
-                            "ES256"
-                          ]
-                        },
-                        "request_object_signing_alg": {
-                          "type": "string",
-                          "enum": [
-                            "RS256",
-                            "PS256",
-                            "ES256"
-                          ]
-                        },
-                        "token_endpoint_auth_signing_alg": {
-                          "type": "string",
-                          "enum": [
-                            "RS256",
-                            "PS256",
-                            "ES256"
-                          ]
-                        },
-                        "tls_client_auth_subject_dn": {
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 128
                         }
-                      }
+                      ]
                     },
                     {
                       "required": [
@@ -251,135 +298,182 @@
                 "schema": {
                   "allOf": [
                     {
-                      "type": "object",
-                      "required": [
-                        "redirect_uris",
-                        "token_endpoint_auth_method",
-                        "grant_types",
-                        "scope",
-                        "software_statement",
-                        "application_type",
-                        "id_token_signed_response_alg",
-                        "request_object_signing_alg"
-                      ],
-                      "properties": {
-                        "client_id": {
-                          "description": "OAuth 2.0 client identifier string",
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 36
-                        },
-                        "client_secret": {
-                          "description": "OAuth 2.0 client secret string",
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 36
-                        },
-                        "client_id_issued_at": {
-                          "description": "Time at which the client identifier was issued expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
-                          "type": "integer",
-                          "format": "int32",
-                          "minimum": 0
-                        },
-                        "client_secret_expires_at": {
-                          "description": "Time at which the client secret will expire expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC. Set to 0 if does not expire",
-                          "type": "integer",
-                          "format": "int32",
-                          "minimum": 0
-                        },
-                        "redirect_uris": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "format": "uri",
-                            "minLength": 1,
-                            "maxLength": 256
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "required": [
+                            "iss",
+                            "iat",
+                            "exp",
+                            "aud",
+                            "jti"
+                          ],
+                          "properties": {
+                            "iss": {
+                              "description": "Unique identifier for the TPP. Implemented as Base62 encoded GUID",
+                              "type": "string",
+                              "pattern": "^[0-9a-zA-Z]{1,22}$",
+                              "minLength": 1,
+                              "maxLength": 22
+                            },
+                            "iat": {
+                              "description": "The time at which the request was issued by the TPP  expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
+                              "type": "integer",
+                              "format": "int32"
+                            },
+                            "exp": {
+                              "description": "The time at which the request expires expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
+                              "type": "integer",
+                              "format": "int32"
+                            },
+                            "aud": {
+                              "description": "The audience for the request. This should be the unique identifier\nfor the ASPSP issued by the issuer of the software statement.\nImplemented as Base62 encoded GUID\n",
+                              "type": "string",
+                              "pattern": "^[0-9a-zA-Z]{1,18}$",
+                              "minLength": 1,
+                              "maxLength": 18
+                            },
+                            "jti": {
+                              "description": "Unique identifier for the JWT implemented as UUID v4",
+                              "type": "string",
+                              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+                              "minLength": 36,
+                              "maxLength": 36
+                            }
                           }
                         },
-                        "token_endpoint_auth_method": {
-                          "type": "string",
-                          "enum": [
-                            "private_key_jwt",
-                            "client_secret_jwt",
-                            "client_secret_basic",
-                            "client_secret_post",
-                            "tls_client_auth"
-                          ]
-                        },
-                        "grant_types": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "enum": [
-                              "client_credentials",
-                              "authorization_code",
-                              "refresh_token"
-                            ]
-                          },
-                          "minItems": 1
-                        },
-                        "response_types": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "enum": [
-                              "code",
-                              "code id_token"
-                            ]
+                        {
+                          "type": "object",
+                          "required": [
+                            "redirect_uris",
+                            "token_endpoint_auth_method",
+                            "grant_types",
+                            "scope",
+                            "software_statement",
+                            "application_type",
+                            "id_token_signed_response_alg",
+                            "request_object_signing_alg"
+                          ],
+                          "properties": {
+                            "client_id": {
+                              "description": "OAuth 2.0 client identifier string",
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 36
+                            },
+                            "client_secret": {
+                              "description": "OAuth 2.0 client secret string",
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 36
+                            },
+                            "client_id_issued_at": {
+                              "description": "Time at which the client identifier was issued expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
+                              "type": "integer",
+                              "format": "int32",
+                              "minimum": 0
+                            },
+                            "client_secret_expires_at": {
+                              "description": "Time at which the client secret will expire expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC. Set to 0 if does not expire",
+                              "type": "integer",
+                              "format": "int32",
+                              "minimum": 0
+                            },
+                            "redirect_uris": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "format": "uri",
+                                "minLength": 1,
+                                "maxLength": 256
+                              }
+                            },
+                            "token_endpoint_auth_method": {
+                              "type": "string",
+                              "enum": [
+                                "private_key_jwt",
+                                "client_secret_jwt",
+                                "client_secret_basic",
+                                "client_secret_post",
+                                "tls_client_auth"
+                              ]
+                            },
+                            "grant_types": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "enum": [
+                                  "client_credentials",
+                                  "authorization_code",
+                                  "refresh_token"
+                                ]
+                              },
+                              "minItems": 1
+                            },
+                            "response_types": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "enum": [
+                                  "code",
+                                  "code id_token"
+                                ]
+                              }
+                            },
+                            "software_id": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 22,
+                              "pattern": "^[0-9a-zA-Z]{1,22}$"
+                            },
+                            "scope": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 256
+                            },
+                            "software_statement": {
+                              "type": "string",
+                              "format": "JWT"
+                            },
+                            "application_type": {
+                              "type": "string",
+                              "enum": [
+                                "web",
+                                "mobile"
+                              ]
+                            },
+                            "id_token_signed_response_alg": {
+                              "type": "string",
+                              "enum": [
+                                "RS256",
+                                "PS256",
+                                "ES256"
+                              ]
+                            },
+                            "request_object_signing_alg": {
+                              "type": "string",
+                              "enum": [
+                                "RS256",
+                                "PS256",
+                                "ES256"
+                              ]
+                            },
+                            "token_endpoint_auth_signing_alg": {
+                              "type": "string",
+                              "enum": [
+                                "RS256",
+                                "PS256",
+                                "ES256"
+                              ]
+                            },
+                            "tls_client_auth_subject_dn": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 128
+                            }
                           }
-                        },
-                        "software_id": {
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 22,
-                          "pattern": "^[0-9a-zA-Z]{1,22}$"
-                        },
-                        "scope": {
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 256
-                        },
-                        "software_statement": {
-                          "type": "string",
-                          "format": "JWT"
-                        },
-                        "application_type": {
-                          "type": "string",
-                          "enum": [
-                            "web",
-                            "mobile"
-                          ]
-                        },
-                        "id_token_signed_response_alg": {
-                          "type": "string",
-                          "enum": [
-                            "RS256",
-                            "PS256",
-                            "ES256"
-                          ]
-                        },
-                        "request_object_signing_alg": {
-                          "type": "string",
-                          "enum": [
-                            "RS256",
-                            "PS256",
-                            "ES256"
-                          ]
-                        },
-                        "token_endpoint_auth_signing_alg": {
-                          "type": "string",
-                          "enum": [
-                            "RS256",
-                            "PS256",
-                            "ES256"
-                          ]
-                        },
-                        "tls_client_auth_subject_dn": {
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 128
                         }
-                      }
+                      ]
                     },
                     {
                       "required": [
@@ -447,135 +541,182 @@
                 "schema": {
                   "allOf": [
                     {
-                      "type": "object",
-                      "required": [
-                        "redirect_uris",
-                        "token_endpoint_auth_method",
-                        "grant_types",
-                        "scope",
-                        "software_statement",
-                        "application_type",
-                        "id_token_signed_response_alg",
-                        "request_object_signing_alg"
-                      ],
-                      "properties": {
-                        "client_id": {
-                          "description": "OAuth 2.0 client identifier string",
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 36
-                        },
-                        "client_secret": {
-                          "description": "OAuth 2.0 client secret string",
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 36
-                        },
-                        "client_id_issued_at": {
-                          "description": "Time at which the client identifier was issued expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
-                          "type": "integer",
-                          "format": "int32",
-                          "minimum": 0
-                        },
-                        "client_secret_expires_at": {
-                          "description": "Time at which the client secret will expire expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC. Set to 0 if does not expire",
-                          "type": "integer",
-                          "format": "int32",
-                          "minimum": 0
-                        },
-                        "redirect_uris": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "format": "uri",
-                            "minLength": 1,
-                            "maxLength": 256
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "required": [
+                            "iss",
+                            "iat",
+                            "exp",
+                            "aud",
+                            "jti"
+                          ],
+                          "properties": {
+                            "iss": {
+                              "description": "Unique identifier for the TPP. Implemented as Base62 encoded GUID",
+                              "type": "string",
+                              "pattern": "^[0-9a-zA-Z]{1,22}$",
+                              "minLength": 1,
+                              "maxLength": 22
+                            },
+                            "iat": {
+                              "description": "The time at which the request was issued by the TPP  expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
+                              "type": "integer",
+                              "format": "int32"
+                            },
+                            "exp": {
+                              "description": "The time at which the request expires expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
+                              "type": "integer",
+                              "format": "int32"
+                            },
+                            "aud": {
+                              "description": "The audience for the request. This should be the unique identifier\nfor the ASPSP issued by the issuer of the software statement.\nImplemented as Base62 encoded GUID\n",
+                              "type": "string",
+                              "pattern": "^[0-9a-zA-Z]{1,18}$",
+                              "minLength": 1,
+                              "maxLength": 18
+                            },
+                            "jti": {
+                              "description": "Unique identifier for the JWT implemented as UUID v4",
+                              "type": "string",
+                              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+                              "minLength": 36,
+                              "maxLength": 36
+                            }
                           }
                         },
-                        "token_endpoint_auth_method": {
-                          "type": "string",
-                          "enum": [
-                            "private_key_jwt",
-                            "client_secret_jwt",
-                            "client_secret_basic",
-                            "client_secret_post",
-                            "tls_client_auth"
-                          ]
-                        },
-                        "grant_types": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "enum": [
-                              "client_credentials",
-                              "authorization_code",
-                              "refresh_token"
-                            ]
-                          },
-                          "minItems": 1
-                        },
-                        "response_types": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "enum": [
-                              "code",
-                              "code id_token"
-                            ]
+                        {
+                          "type": "object",
+                          "required": [
+                            "redirect_uris",
+                            "token_endpoint_auth_method",
+                            "grant_types",
+                            "scope",
+                            "software_statement",
+                            "application_type",
+                            "id_token_signed_response_alg",
+                            "request_object_signing_alg"
+                          ],
+                          "properties": {
+                            "client_id": {
+                              "description": "OAuth 2.0 client identifier string",
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 36
+                            },
+                            "client_secret": {
+                              "description": "OAuth 2.0 client secret string",
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 36
+                            },
+                            "client_id_issued_at": {
+                              "description": "Time at which the client identifier was issued expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC",
+                              "type": "integer",
+                              "format": "int32",
+                              "minimum": 0
+                            },
+                            "client_secret_expires_at": {
+                              "description": "Time at which the client secret will expire expressed as seconds since 1970-01-01T00:00:00Z as measured in UTC. Set to 0 if does not expire",
+                              "type": "integer",
+                              "format": "int32",
+                              "minimum": 0
+                            },
+                            "redirect_uris": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "format": "uri",
+                                "minLength": 1,
+                                "maxLength": 256
+                              }
+                            },
+                            "token_endpoint_auth_method": {
+                              "type": "string",
+                              "enum": [
+                                "private_key_jwt",
+                                "client_secret_jwt",
+                                "client_secret_basic",
+                                "client_secret_post",
+                                "tls_client_auth"
+                              ]
+                            },
+                            "grant_types": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "enum": [
+                                  "client_credentials",
+                                  "authorization_code",
+                                  "refresh_token"
+                                ]
+                              },
+                              "minItems": 1
+                            },
+                            "response_types": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "enum": [
+                                  "code",
+                                  "code id_token"
+                                ]
+                              }
+                            },
+                            "software_id": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 22,
+                              "pattern": "^[0-9a-zA-Z]{1,22}$"
+                            },
+                            "scope": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 256
+                            },
+                            "software_statement": {
+                              "type": "string",
+                              "format": "JWT"
+                            },
+                            "application_type": {
+                              "type": "string",
+                              "enum": [
+                                "web",
+                                "mobile"
+                              ]
+                            },
+                            "id_token_signed_response_alg": {
+                              "type": "string",
+                              "enum": [
+                                "RS256",
+                                "PS256",
+                                "ES256"
+                              ]
+                            },
+                            "request_object_signing_alg": {
+                              "type": "string",
+                              "enum": [
+                                "RS256",
+                                "PS256",
+                                "ES256"
+                              ]
+                            },
+                            "token_endpoint_auth_signing_alg": {
+                              "type": "string",
+                              "enum": [
+                                "RS256",
+                                "PS256",
+                                "ES256"
+                              ]
+                            },
+                            "tls_client_auth_subject_dn": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 128
+                            }
                           }
-                        },
-                        "software_id": {
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 22,
-                          "pattern": "^[0-9a-zA-Z]{1,22}$"
-                        },
-                        "scope": {
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 256
-                        },
-                        "software_statement": {
-                          "type": "string",
-                          "format": "JWT"
-                        },
-                        "application_type": {
-                          "type": "string",
-                          "enum": [
-                            "web",
-                            "mobile"
-                          ]
-                        },
-                        "id_token_signed_response_alg": {
-                          "type": "string",
-                          "enum": [
-                            "RS256",
-                            "PS256",
-                            "ES256"
-                          ]
-                        },
-                        "request_object_signing_alg": {
-                          "type": "string",
-                          "enum": [
-                            "RS256",
-                            "PS256",
-                            "ES256"
-                          ]
-                        },
-                        "token_endpoint_auth_signing_alg": {
-                          "type": "string",
-                          "enum": [
-                            "RS256",
-                            "PS256",
-                            "ES256"
-                          ]
-                        },
-                        "tls_client_auth_subject_dn": {
-                          "type": "string",
-                          "minLength": 1,
-                          "maxLength": 128
                         }
-                      }
+                      ]
                     },
                     {
                       "required": [
