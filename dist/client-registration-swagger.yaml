@@ -242,8 +242,6 @@ definitions:
           - poll
           - ping
           - push
-        minLength: 1
-        maxLength: 8
         description: >-
           As defined in CIBA - Registration and Discovery Metadata. 
           This value MUST be specified iff the grant_types includes 
