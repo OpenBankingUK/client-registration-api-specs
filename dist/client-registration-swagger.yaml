@@ -225,7 +225,7 @@ definitions:
         type: string
         enum:
           - web
-          - mobile
+          - native
       id_token_signed_response_alg:
         $ref: '#/definitions/SupportedAlgorithms'
       request_object_signing_alg:

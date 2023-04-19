@@ -174,7 +174,7 @@
                               "type": "string",
                               "enum": [
                                 "web",
-                                "mobile"
+                                "native"
                               ]
                             },
                             "id_token_signed_response_alg": {
@@ -469,7 +469,7 @@
                               "type": "string",
                               "enum": [
                                 "web",
-                                "mobile"
+                                "native"
                               ]
                             },
                             "id_token_signed_response_alg": {
@@ -741,7 +741,7 @@
                               "type": "string",
                               "enum": [
                                 "web",
-                                "mobile"
+                                "native"
                               ]
                             },
                             "id_token_signed_response_alg": {
