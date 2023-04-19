@@ -12,7 +12,7 @@ info:
   license:
     name: open-licence
     url: 'https://www.openbanking.org.uk/open-licence'
-  version: v3.3.0
+  version: v3.4.0-DRAFT1
 paths:
   /register:
     post:
@@ -234,7 +234,7 @@ components:
           type: string
           enum:
             - web
-            - mobile
+            - native
         id_token_signed_response_alg:
           $ref: '#/components/schemas/SupportedAlgorithms'
         request_object_signing_alg:
