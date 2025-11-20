@@ -12,7 +12,7 @@
       "name": "open-licence",
       "url": "https://www.openbanking.org.uk/open-licence"
     },
-    "version": "v3.4.0-DRAFT1"
+    "version": "v3.4.0-RC1"
   },
   "paths": {
     "/register": {
@@ -40,6 +40,7 @@
     "/register/{ClientId}": {
       "get": {
         "summary": "Get a client by way of Client ID",
+        "description": "Endpoint will be secured with a client credentials grant and TLS Mutual Authentication.",
         "tags": [
           "Client Registration",
           "Optional"
@@ -71,6 +72,7 @@
       },
       "put": {
         "summary": "Update a client by way of Client ID",
+        "description": "Endpoint will be secured with a client credentials grant and TLS Mutual Authentication.",
         "tags": [
           "Client Registration",
           "Optional"
@@ -108,6 +110,7 @@
       },
       "delete": {
         "summary": "Delete a client by way of Client ID",
+        "description": "Endpoint will be secured with a client credentials grant and TLS Mutual Authentication.",
         "tags": [
           "Client Registration",
           "Optional"
@@ -299,7 +302,8 @@
                 "client_credentials",
                 "authorization_code",
                 "refresh_token",
-                "urn:openid:params:grant-type:ciba"
+                "urn:openid:params:grant-type:ciba",
+                "urn:ietf:params:oauth:grant-type:jwt-bearer"
               ]
             },
             "minItems": 1
@@ -348,7 +352,9 @@
           "tls_client_auth_subject_dn": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 128
+            "maxLength": 512,
+            "pattern": "^(?=.{1,512}$)[Cc][Nn]=[^,]+(?:,[^,\\s]+=[^,]+)*$",
+            "example": "CN=TPPIdentifier,organizationIdentifier=PSDGB-OB-UnknownTPPID,O=Open Banking Limited (A),C=GB"
           },
           "backchannel_token_delivery_mode": {
             "type": "string",
